@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "308515896935",
+    "project_id": "elior-candle-v2",
+    "storage_bucket": "elior-candle-v2.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:308515896935:android:e64188305d77138e955ec2",
+        "android_client_info": {
+          "package_name": "com.example.elienorcandlev2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "308515896935-0l8ih7eg4594875u15uun3ah2t7hfkil.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.elienorcandlev2",
+            "certificate_hash": "45bd55ecea647b1dcadd1b2c9e0535e0b4a8bf21"
+          }
+        },
+        {
+          "client_id": "308515896935-in5i0tukoh0acj4c4q82op1ludtugmrp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCJOsrhec7FpmGsk1FDEOQV53p8YBBzqwo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "308515896935-in5i0tukoh0acj4c4q82op1ludtugmrp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
