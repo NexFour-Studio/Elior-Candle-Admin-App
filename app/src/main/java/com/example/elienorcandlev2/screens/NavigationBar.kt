@@ -40,4 +40,3 @@ fun BottomNavigationBar(selectedIndex: Int, onItemSelected: (Int) -> Unit) {
         }
     }
 }
-

@@ -8,12 +8,11 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.mutableStateOf
 import com.example.elienorcandlev2.screens.LoginScreen
 import com.example.elienorcandlev2.screens.ForgotPasswordScreen
-import com.example.elienorcandlev2.screens.DashboardScreen
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
@@ -30,25 +29,27 @@ class MainActivity : ComponentActivity() {
         auth = FirebaseAuth.getInstance()
         screen = if (auth.currentUser != null) "dashboard" else "login"
         setContent {
-            when (screen) {
-                "login" -> {
-                    LoginScreen(
-                        onForgotPassword = { screen = "forgot-password" },
-                        onLogin = { email, password ->
-                            loginUser(email, password) { success ->
-                                if (success) screen = "dashboard"
-                            }
-                        },
-                        onGoogleSignIn = { startGoogleSignIn() }
-                    )
-                }
-                "forgot-password" -> {
-                    ForgotPasswordScreen(
-                        onBackToLogin = { screen = "login" }
-                    )
-                }
-                "dashboard" -> {
-                    com.example.elienorcandlev2.screens.MainScreen()
+            com.example.elienorcandlev2.ui.theme.ElienorCandleV2Theme {
+                when (screen) {
+                    "login" -> {
+                        LoginScreen(
+                            onForgotPassword = { screen = "forgot-password" },
+                            onLogin = { email, password ->
+                                loginUser(email, password) { success ->
+                                    if (success) screen = "dashboard"
+                                }
+                            },
+                            onGoogleSignIn = { startGoogleSignIn() }
+                        )
+                    }
+                    "forgot-password" -> {
+                        ForgotPasswordScreen(
+                            onBackToLogin = { screen = "login" }
+                        )
+                    }
+                    "dashboard" -> {
+                        com.example.elienorcandlev2.screens.MainScreen()
+                    }
                 }
             }
         }

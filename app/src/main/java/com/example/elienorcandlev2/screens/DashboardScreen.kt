@@ -35,6 +35,7 @@ fun DashboardScreen() {
             ),
             modifier = Modifier.padding(top = 8.dp)
         )
+        HorizontalDivider(color = Color(0xFFF3EDE7), thickness = 1.dp, modifier = Modifier.padding(vertical = 8.dp))
         SectionTitle("Recent Orders")
         Column(modifier = Modifier.padding(horizontal = 16.dp)) {
             RecentOrderRow("Ethan Carter", "Order #12345", "$50")
@@ -43,6 +44,7 @@ fun DashboardScreen() {
             RecentOrderRow("Olivia Smith", "Order #12348", "$120")
             RecentOrderRow("Noah Johnson", "Order #12349", "$60")
         }
+        HorizontalDivider(color = Color(0xFFF3EDE7), thickness = 1.dp, modifier = Modifier.padding(vertical = 8.dp))
         SectionTitle("Today's Stats")
         DashboardStatRow(
             stats = listOf(

@@ -12,14 +12,19 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SettingsScreen(onLogout: () -> Unit, onBack: () -> Unit) {
+fun SettingsScreen(
+    onLogout: () -> Unit,
+    onBack: () -> Unit
+) {
     val scrollState = rememberScrollState()
 
     Column(
@@ -29,10 +34,25 @@ fun SettingsScreen(onLogout: () -> Unit, onBack: () -> Unit) {
             .verticalScroll(scrollState)
     ) {
         TopAppBar(
-            title = { Text("Settings", modifier = Modifier.fillMaxWidth(), textAlign = androidx.compose.ui.text.style.TextAlign.Center) },
+            title = {
+                Box(Modifier.fillMaxWidth()) {
+                    Text(
+                        "Settings",
+                        modifier = Modifier.align(Alignment.Center),
+                        textAlign = TextAlign.Center
+                    )
+                    // Add invisible box to the left to balance the back arrow
+                    Box(modifier = Modifier.align(Alignment.CenterStart).size(48.dp).alpha(0f))
+                    // Add invisible box to the right to balance the actions slot (if any)
+                    Box(modifier = Modifier.align(Alignment.CenterEnd).size(48.dp).alpha(0f))
+                }
+            },
             navigationIcon = {
                 IconButton(onClick = onBack) {
-                    Icon(imageVector = Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = "Back"
+                    )
                 }
             },
             colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Color(0xFFFCFAF8))

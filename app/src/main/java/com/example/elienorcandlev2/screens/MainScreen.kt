@@ -18,6 +18,7 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Settings
 import com.example.elienorcandlev2.MainActivity
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.unit.dp
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -26,41 +27,66 @@ fun MainScreen() {
     var showSettings by remember { mutableStateOf(false) }
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Box(Modifier.fillMaxWidth()) {
-                        Text(
-                            if (showSettings) "Settings" else when (selectedIndex) {
-                                0 -> "Dashboard"
-                                1 -> "Orders"
-                                else -> "App"
-                            },
-                            modifier = Modifier.align(Alignment.Center),
-                            fontWeight = FontWeight.Bold,
-                            fontSize = 20.sp
-                        )
-                    }
-                },
-                navigationIcon = {
-                    if (showSettings) {
-                        IconButton(onClick = { showSettings = false }) {
-                            Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+            Column {
+                TopAppBar(
+                    title = {
+                        Box(Modifier.fillMaxWidth()) {
+                            Text(
+                                if (showSettings) "Settings" else when (selectedIndex) {
+                                    0 -> "Dashboard"
+                                    1 -> "Orders"
+                                    else -> "App"
+                                },
+                                modifier = Modifier.align(Alignment.Center),
+                                fontWeight = FontWeight.Bold,
+                                fontSize = 20.sp
+                            )
                         }
-                    }
-                },
-                actions = {
-                    if (!showSettings && (selectedIndex == 0 || selectedIndex == 1)) {
-                        IconButton(onClick = { showSettings = true }) {
-                            Icon(Icons.Default.Settings, contentDescription = "Settings")
+                    },
+                    navigationIcon = {
+                        if (showSettings) {
+                            IconButton(onClick = { showSettings = false }) {
+                                Icon(Icons.AutoMirrored.Filled.ArrowBack, contentDescription = "Back")
+                            }
                         }
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Color(0xFFFCFAF8))
-            )
+                    },
+                    actions = {
+                        if (!showSettings && (selectedIndex == 0 || selectedIndex == 1)) {
+                            IconButton(onClick = { showSettings = true }) {
+                                Icon(Icons.Default.Settings, contentDescription = "Settings")
+                            }
+                        }
+                    },
+                    colors = TopAppBarDefaults.topAppBarColors(
+                        containerColor = Color(0xFF4B1F0B),
+                        titleContentColor = Color(0xFFF3EDE7), // Light beige for contrast
+                        actionIconContentColor = Color(0xFFF3EDE7),
+                        navigationIconContentColor = Color(0xFFF3EDE7)
+                    )
+                )
+                HorizontalDivider(
+                    color = Color(0xFFF3EDE7).copy(alpha = 0.6f),
+                    thickness = 1.dp,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp)
+                )
+            }
         },
         bottomBar = {
             if (!showSettings) {
-                BottomNavigationBar(selectedIndex = selectedIndex, onItemSelected = { selectedIndex = it })
+                Column(
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    HorizontalDivider(
+                        color = Color(0xFFF3EDE7).copy(alpha = 0.6f),
+                        thickness = 1.dp,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(horizontal = 16.dp)
+                    )
+                    BottomNavigationBar(selectedIndex = selectedIndex, onItemSelected = { selectedIndex = it })
+                }
             }
         },
         containerColor = Color(0xFFFCFAF8)
@@ -68,7 +94,7 @@ fun MainScreen() {
         val context = LocalContext.current
         var logoutRequested by remember { mutableStateOf(false) }
         if (logoutRequested) {
-            LaunchedEffect(logoutRequested) {
+            LaunchedEffect(true) {
                 (context as? MainActivity)?.logoutUser {}
                 logoutRequested = false
             }
@@ -84,7 +110,7 @@ fun MainScreen() {
                     DashboardScreen()
                 }
                 1 -> Column(modifier = Modifier.padding(padding)) {
-                    OrdersScreenContent(padding)
+                    OrdersScreenContent()
                 }
                 else -> Box(Modifier.padding(padding).fillMaxSize(), contentAlignment = Alignment.Center) {
                     Text("Screen $selectedIndex", fontWeight = FontWeight.Bold, fontSize = 20.sp)
